@@ -1,0 +1,2 @@
+,train_data_time,test_data_time,network_time,epoch,lr,train_time,forward_time,load_time,test_time,accuracy,net,layers,loss_function,optimizer,train_samples,test_samples,data_transformations
+0,0.0283859999617561,0.0059223999269306,0.0011471000034362,15,0.0050.005,270.5782899999758,0.3048366002039984,1.737655998324044,2.0424925985280424,99.25,lenet5,7,cross_entropy,sgd,60000,10000,"{'type': 'pad', 'padding': 2}"
