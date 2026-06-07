@@ -56,18 +56,18 @@ python script.py info --config_path configs/mon_reseau.json
 Entraîne un réseau de neurones sur le dataset MNIST.
 
 ```bash
-python script.py train --config_path <chemin_vers_config> [options]
+python script.py train --config_path <chemin_vers_config> --params_path <chemin_vers_poids> [options]
 ```
 
 **Arguments requis :**
 - `--config_path` : Chemin vers le fichier de configuration du réseau
+- `--params_path` : Chemin pour la sauvegarde des paramètres du réseau une fois entraîné
 
 **Arguments optionnels :**
 - `--params_path` : Chemin où sauvegarder les paramètres du réseau entraîné
 - `--seed` (par défaut: `42`) : Seed pour la reproductibilité
 - `--epochs` (par défaut: `30`) : Nombre d'epochs d'entraînement
 - `--batch-size` (par défaut: `32`) : Taille des batches
-- `--normalization` : Activer la normalisation des données
 - `--early-stopping` : Activer l'arrêt précoce de l'entraînement
 - `--patience` (par défaut: `5`) : Nombre d'epochs sans amélioration avant arrêt précoce
 - `--lr` (par défaut: `0.005`) : Learning rate (taux d'apprentissage)
@@ -75,7 +75,7 @@ python script.py train --config_path <chemin_vers_config> [options]
 
 **Exemple basique :**
 ```bash
-python script.py train --config_path configs/mon_reseau.json
+python script.py train --config_path configs/mon_reseau.json --params_path model_params/mon_reseau.pt
 ```
 
 **Exemple avec options personnalisées :**
@@ -87,7 +87,6 @@ python script.py train \
     --batch-size 64 \
     --lr 0.01 \
     --momentum 0.95 \
-    --normalization \
     --early-stopping \
     --patience 10
 ```
@@ -121,38 +120,23 @@ python script.py test --config_path configs/mon_reseau.json --params_path model_
 
 ```bash
 # 1. Afficher les informations du réseau
-python script.py info --config_path configs/cnn_simple.json
+python script.py info --config_path configs/lenet5.json
 
 # 2. Entraîner le réseau avec normalisation et early stopping
 python script.py train \
-    --config_path configs/cnn_simple.json \
-    --params_path models/cnn_simple.pt \
-    --epochs 100 \
-    --batch-size 128 \
-    --normalization \
+    --config_path configs/lenet5.json \
+    --params_path model_params/lenet5.pt \
+    --epochs 20 \
+    --batch-size 32 \
     --early-stopping \
-    --patience 15 \
+    --patience 3 \
     --lr 0.001
 
 # 3. Tester le réseau entraîné
 python script.py test \
-    --config_path configs/cnn_simple.json \
-    --params_path models/cnn_simple.pt
+    --config_path configs/lenet5.json \
+    --params_path model_params/lenet5.pt
 ```
-
-### Expérimentation avec différents hyperparamètres
-
-```bash
-# Test avec SGD
-python script.py train --config_path configs/mon_reseau.json --lr 0.01 --momentum 0.95
-
-# Test avec un batch size plus grand
-python script.py train --config_path configs/mon_reseau.json --batch-size 64
-
-# Test avec plus d'epochs
-python script.py train --config_path configs/mon_reseau.json --epochs 50
-```
-
 ---
 
 ## ⚙️ Configuration avancée

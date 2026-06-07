@@ -81,11 +81,6 @@ train_parser.add_argument(
 )
 
 train_parser.add_argument(
-    "--normalization",
-    action="store_true"
-)
-
-train_parser.add_argument(
     "--early-stopping",
     action="store_true"
 )
