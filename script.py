@@ -59,7 +59,7 @@ train_parser.add_argument(
 train_parser.add_argument(
     "--params_path",
     type=str,
-    default="model"
+    required=True
 )
 
 train_parser.add_argument(
