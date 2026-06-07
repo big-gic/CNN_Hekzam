@@ -33,7 +33,7 @@ info_parser = subparsers.add_parser(
 )
 
 info_parser.add_argument(
-    "--config",
+    "--config_path",
     type=str,
     required=True,
     help="Nom du réseau"
@@ -50,14 +50,14 @@ train_parser = subparsers.add_parser(
 )
 
 train_parser.add_argument(
-    "--config",
+    "--config_path",
     type=str,
     required=True,
     help="Nom du réseau"
 )
 
 train_parser.add_argument(
-    "--save-name",
+    "--params_path",
     type=str,
     default="model"
 )
@@ -118,14 +118,14 @@ test_parser = subparsers.add_parser(
 )
 
 test_parser.add_argument(
-    "--config",
+    "--config_path",
     type=str,
     required=True,
     help="Nom du réseau"
 )
 
 test_parser.add_argument(
-    "--save-name",
+    "--params_path",
     type=str,
     required=True
 )
@@ -166,8 +166,8 @@ if args.command == "train":
 
     conf.update({
         "seed": args.seed,
-        "save_name": args.save_name,
-        "config": args.config,
+        "params_path": args.params_path,
+        "config_path": args.config_path,
         "num_epochs": args.epochs,
         "batch_size": args.batch_size,
         "early_stopping": args.early_stopping,
@@ -184,14 +184,14 @@ elif args.command == "test":
 
     conf.update({
         "seed": args.seed,
-        "save_name": args.save_name,
-        "config": args.config,
+        "params_path": args.params_path,
+        "config_path": args.config_path,
     })
 
 elif args.command == "info":
     
     conf.update({
-        "config": args.config
+        "config_path": args.config_path
     })
 
 

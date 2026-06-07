@@ -229,8 +229,7 @@ class Trainer :
 
     def train(self):
 
-        Path("model_params").mkdir(exist_ok=True)
-        torch.save(self.net.state_dict(), "best_model.pt")
+        torch.save(self.net.state_dict(), "last_model.pt")
 
         # initialisation des paramètres d'apprentissage
         criterion, optimizer, scheduler = self.create_learning_param()
@@ -257,7 +256,7 @@ class Trainer :
 
                     # sauvegarde du meilleur modèle
                     print(f"sauvegarde (accuracy sur dataset de validation : {accuracy:.4f} %)")
-                    torch.save(self.net.state_dict(), "best_model.pt")
+                    torch.save(self.net.state_dict(), "last_model.pt")
                 else:
                     patience_counter += 1
 
@@ -267,7 +266,8 @@ class Trainer :
                     break
 
         # recharger le meilleur modèle
-        self.net.load_state_dict(torch.load("best_model.pt"))
+        self.net.load_state_dict(torch.load("last_model.pt"))
+        Path("last_model.pt").unlink(missing_ok=True)
         print(f"Finished Training on {len(self.dataset.train_loader.dataset)} samples")
         return epoch, optimizer.param_groups[0]['lr']
 
@@ -359,11 +359,11 @@ class Train:
 
     def save_net(self):
         Path("model_params").mkdir(exist_ok=True)
-        torch.save(self.net.state_dict(), "model_params/"+self.conf["save_name"]+".pt")
+        torch.save(self.net.state_dict(), self.conf["params_path"])
 
 
     def load_params(self):
-        params = pd.read_json(self.conf["config"])
+        params = pd.read_json(self.conf["config_path"])
         self.conf["data_transforms"] = params.at[0, "data_transformations"]
         self.conf["layers"] = params.at[0, "layer_list"]
 

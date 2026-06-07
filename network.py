@@ -11,7 +11,7 @@ class Network :
 
 
     def load_params(self) :
-        self.params = pd.read_json(self.conf["config"])
+        self.params = pd.read_json(self.conf["config_path"])
 
 
     def display_layers(self) :

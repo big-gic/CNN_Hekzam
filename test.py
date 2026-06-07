@@ -375,14 +375,14 @@ class Test:
 
     
     def load_params(self):
-        params = pd.read_json(self.conf["config"])
+        params = pd.read_json(self.conf["config_path"])
         self.conf["data_transforms"] = params.at[0, "data_transformations"]
         self.conf["layers"] = params.at[0, "layer_list"]
 
     
     def load_net(self):
         self.build_network_time()
-        self.net.load_state_dict(torch.load("model_params/"+self.conf["save_name"]+".pt"))
+        self.net.load_state_dict(torch.load(self.conf["params_path"]))
 
 
     def add_results_to_csv(self):
