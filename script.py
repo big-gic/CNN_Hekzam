@@ -254,15 +254,15 @@ elif args.command == "tests-time":
 # =====================
 
 net_paths = np.array([
-    # {"config_path": "configs/network3.json", "params_path": "params/network3.pt"},
-    # {"config_path": "configs/CNN_with_BN.json", "params_path": "params/CNN_with_BN.pt"},
-    # {"config_path": "configs/dropout_CNN.json", "params_path": "params/dropout_CNN.pt"},
-    # {"config_path": "configs/dropout_lenet5.json", "params_path": "params/dropout_lenet5.pt"},
-    # {"config_path": "configs/lenet5.json", "params_path": "params/lenet5.pt"},
-    # {"config_path": "configs/lenet4.json", "params_path": "params/lenet4.pt"},
-    # {"config_path": "configs/simplified_lenet5.json", "params_path": "params/simplified_lenet5.pt"},
-    # {"config_path": "configs/dilated_lenet5.json", "params_path": "params/dilated_lenet5.pt"},
-    # {"config_path": "configs/lenet1.json", "params_path": "params/lenet1.pt"},
+    {"config_path": "configs/network3.json", "params_path": "params/network3.pt"},
+    {"config_path": "configs/CNN_with_BN.json", "params_path": "params/CNN_with_BN.pt"},
+    {"config_path": "configs/dropout_CNN.json", "params_path": "params/dropout_CNN.pt"},
+    {"config_path": "configs/dropout_lenet5.json", "params_path": "params/dropout_lenet5.pt"},
+    {"config_path": "configs/lenet5.json", "params_path": "params/lenet5.pt"},
+    {"config_path": "configs/lenet4.json", "params_path": "params/lenet4.pt"},
+    {"config_path": "configs/simplified_lenet5.json", "params_path": "params/simplified_lenet5.pt"},
+    {"config_path": "configs/dilated_lenet5.json", "params_path": "params/dilated_lenet5.pt"},
+    {"config_path": "configs/lenet1.json", "params_path": "params/lenet1.pt"},
     {"config_path": "configs/400-300-10.json", "params_path": "params/400-300-10.pt"},
     {"config_path": "configs/400-10.json", "params_path": "params/400-10.pt"},
     {"config_path": "configs/128-10.json", "params_path": "params/128-10.pt"}
