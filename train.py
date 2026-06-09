@@ -319,19 +319,16 @@ class Train:
         self.train_dataset = None
         self.net = None
         self.trainer = None
-        self.results = {}
+        self.results = {"model": self.conf["params_path"]}
 
 
     def set_global_seed(self):
         torch.manual_seed(self.conf["seed"])
 
 
-    def prepare_train_data_time(self):
-        before_train_data = time.perf_counter()
+    def prepare_train_data(self):
         self.train_dataset = TrainDataset(self.conf)
         self.train_dataset.preprocess_dynamic()
-        after_train_data = time.perf_counter()
-        self.results["train_data_time"] = after_train_data - before_train_data
 
 
     def train_time(self):
@@ -358,7 +355,8 @@ class Train:
 
 
     def save_net(self):
-        Path("model_params").mkdir(exist_ok=True)
+        path = Path(self.conf["params_path"])
+        path.parent.mkdir(parents=True, exist_ok=True)
         torch.save(self.net.state_dict(), self.conf["params_path"])
 
 
@@ -369,24 +367,24 @@ class Train:
 
 
     def add_results_to_csv(self):
-        path = Path("results.csv")
+        path = Path(self.conf["output_path"])
+        path.parent.mkdir(parents=True, exist_ok=True)
+        
         if path.exists():
-            df = pd.read_csv(str(path))
+            df = pd.read_csv(path)
         else:
             print("Création d'un nouveau fichier")
             df = pd.DataFrame()
         df = pd.concat([df, pd.DataFrame([self.results])], ignore_index=True)
-        df.to_csv(str(path), index=False)
-        print("row added to "+str(path))
+        df.to_csv(path, index=False)
+        print("row added to "+ str(path))
 
 
     def run(self):
         self.set_global_seed()
         self.load_params()
-        self.prepare_train_data_time()
-        self.display_train_data()
+        self.prepare_train_data()
         self.build_network_time()
-        self.display_network()
         self.train_time()
         self.save_net()
         self.add_results_to_csv()

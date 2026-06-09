@@ -309,8 +309,8 @@ class Evaluator:
         plt.gca().xaxis.tick_top()
         plt.gca().figure.subplots_adjust(bottom=0.2)
         plt.gca().figure.text(0.5, 0.05, 'Prediction', ha='center', fontsize=13)
-        Path("figures").mkdir(exist_ok=True)
-        plt.savefig("figures/confusion_matrix.png")
+        Path(self.conf["output_path"]+"/figures").mkdir(exist_ok=True)
+        plt.savefig(self.conf["output_path"]+"/figures/confusion_matrix.png")
         plt.close()
         return
 
@@ -331,7 +331,7 @@ class Test:
         self.test_dataset = None
         self.net = None
         self.evaluator = None
-        self.results = {}
+        self.results = {"model": self.conf["params_path"]}
 
 
     def set_global_seed(self):
@@ -386,24 +386,23 @@ class Test:
 
 
     def add_results_to_csv(self):
-        path = Path("results.csv")
+        path = Path(self.conf["output_path"])
+        path.parent.mkdir(parents=True, exist_ok=True)
+        
         if path.exists():
-            df = pd.read_csv(str(path))
+            df = pd.read_csv(path)
         else:
-            print("Création d'un nouveau fichier")
+            print("Création d'un nouveau fichier de résultats")
             df = pd.DataFrame()
         df = pd.concat([df, pd.DataFrame([self.results])], ignore_index=True)
-        df.to_csv(str(path), index=False)
-        print("row added to "+str(path))
+        df.to_csv(path, index=False)
+        print("row added to "+ str(path))
 
 
     def run(self):
         self.set_global_seed()
         self.load_params()
         self.load_net()
-        self.display_network()
         self.prepare_test_data_time()
-        self.display_test_data()
         self.test_time()
-        self.display_test()
         self.add_results_to_csv()
