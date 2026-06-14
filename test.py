@@ -50,7 +50,7 @@ class Net(nn.Module):
                 self.net.append(nn.Dropout(layer["p"])).to(self.conf["device"])
 
             elif layer["type"] == "bn2d":
-                self.net.append(nn.BatchNorm2d(layer["input_channels"]))
+                self.net.append(nn.BatchNorm2d(layer["input_channels"])).to(self.conf["device"])
 
     def forward(self, x):
         layers = self.conf["layers"]
